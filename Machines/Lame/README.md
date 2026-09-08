@@ -254,6 +254,57 @@ root.txt: HTB{__REDACTED__}
 
 ---
 
+## 🧐 Interesting finding
+
+**vsftpd-2.3.4 (CVE-2011-2523)** — an anonymous supply-chain attacker. :)))
+
+**liblzma / xz backdoor** — also funny:
+patched sshd → libsystemd → liblzma (backdoored) → loaded inside sshd (crazy)
+
+**The crux, compressed**
+
+Shared libraries aren't passive bags of functions. The ELF format lets code run at _load time_:
+as the dynamic linker (`ld.so`) wires a library into a process, it executes certain code before
+the program's own logic calls anything. Two mechanisms do this — the well-known
+**constructors** (`__attribute__((constructor))` / `.init_array`), which mark a function to run
+the instant the library loads, and the sneakier one XZ abused: **IFUNC resolvers**.
+
+IFUNC is a legitimate glibc feature for picking the best implementation of a function per-CPU at
+load time (e.g. an SSE2 vs. AVX `memcpy`). The library ships a small **resolver** that inspects
+the CPU and returns a pointer to the right variant, and the linker calls every resolver
+automatically while loading. liblzma had plausible IFUNC resolvers for its CRC functions
+(crc32/crc64), which genuinely benefit from CPU-specific tuning. The attacker **corrupted the
+resolver**: running automatically at load time, it went beyond selecting a CRC implementation to
+(1) locate sshd's GOT/PLT — the tables the linker uses to route function calls — (2) find the
+entry for `RSA_public_decrypt`, called during public-key auth, and (3) redirect it to the
+backdoor.
+
+So "why does code run when it's just a library?" — because loading itself runs code (the
+resolver), and the hook-installation was hidden inside it. By the time liblzma finished loading
+into sshd, the trap was armed, without a single compression function ever being called.
+
+**Where to read more**
+
+- **John R. Levine, _Linkers and Loaders_** (Morgan Kaufmann) — the canonical book on
+  linking/loading: relocation, dynamic linking, and the GOT. Foundational for _why_ a linker
+  runs code at all.
+- **Bryant & O'Hallaron, _Computer Systems: A Programmer's Perspective_ (CS:APP), Ch. 7
+  "Linking"** — the clearest textbook treatment of ELF, symbol resolution, PIC, the GOT/PLT,
+  `.init`, and "library interpositioning" (hooking, the benign cousin of this attack).
+- **Ryan "elfmaster" O'Neill, _Learning Linux Binary Analysis_** (Packt) — ELF internals from an
+  offensive angle: constructors/destructors, GOT/PLT hooking, and IFUNC. The closest book to the
+  actual technique here.
+- **Dennis Andriesse, _Practical Binary Analysis_** (No Starch) — modern ELF, dynamic linking,
+  and PLT/GOT hooking, with hands-on Linux tooling.
+- **Ulrich Drepper, _How To Write Shared Libraries_** (freely available PDF, not a book) — the
+  authoritative deep-dive on dynamic-linker mechanics, symbol resolution order, and
+  IFUNC/constructor internals, by a longtime glibc maintainer.
+
+Start with CS:APP Ch. 7 for the model, then O'Neill or Andriesse for the load-time-execution and
+hooking specifics that this backdoor turned into a weapon.
+
+---
+
 ## 🔗 References
 
 - [CVE-2004-2687 — distcc daemon command execution](https://nvd.nist.gov/vuln/detail/CVE-2004-2687)
