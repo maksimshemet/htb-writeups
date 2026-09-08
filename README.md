@@ -33,7 +33,7 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 
 | Machine | OS | Difficulty | Key Techniques | Writeup |
 |---------|----|-----------|----------------|---------|
-| Lame | 🐧 Linux | 🟢 Easy | Samba `usermap_script` RCE (CVE-2007-2447), distcc RCE (CVE-2004-2687), SUID `nmap` | [Read](Machines/Lame/README.md) |
+| Lame | 🐧 Linux | 🟢 Easy | distcc RCE (CVE-2004-2687), vsftpd 2.3.4 backdoor (CVE-2011-2523) | [Read](Machines/Lame/README.md) |
 
 ---
 
