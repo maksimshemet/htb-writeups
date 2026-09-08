@@ -54,7 +54,26 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 
 ---
 
-## 🧰 Methodology
+## 🧰 Tools & Arsenal
+
+Tools that have earned a permanent place in my workflow:
+
+| Tool | Purpose | Why it's great |
+|------|---------|----------------|
+| [**Penelope**](https://github.com/brightio/penelope) | Reverse-shell handler / listener | Auto-upgrades to a full PTY, manages multiple sessions, logs everything, and handles file up/download — a massive upgrade over raw `nc -lvnp`. |
+| `nmap` | Port & service discovery | The foundation of every engagement. |
+| `smbclient` / `enum4linux` | SMB enumeration | First stop on any Windows/Samba host. |
+| `gtfobins` | Privesc reference | SUID/sudo abuse lookups. |
+
+> 💡 **Quick tip — connect to SMB as guest / null session:**
+> ```bash
+> smbclient //<IP>/<share> -U "" -N     # empty user, no password
+> ```
+> Great for enumerating shares when you have no credentials yet.
+
+---
+
+## 🧭 Methodology
 
 Every box is approached the same disciplined way — the habit that passes the OSCP:
 
