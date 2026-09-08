@@ -3,7 +3,7 @@
 > Penetration-testing walkthroughs for **retired** Hack The Box machines, written as I work toward the **OSCP**.
 > Each writeup follows a repeatable methodology: **Recon → Enumeration → Foothold → Privilege Escalation → Lessons Learned.**
 
-**Author:** Maksym S · **Contact:** semetm25@gmail.com
+**Author:** Maksym S · **HTB:** [@d0m0vyk](https://app.hackthebox.com/profile/d0m0vyk) · **Contact:** semetm25@gmail.com
 
 ---
 
@@ -87,7 +87,7 @@ Every box is approached the same disciplined way — the habit that passes the O
 
 ## 🔗 Connect
 
-- **HTB:** _add your profile link_
+- **HTB:** [@d0m0vyk](https://app.hackthebox.com/profile/d0m0vyk)
 - **Email:** semetm25@gmail.com
 
 _If a writeup helped you, a ⭐ on the repo is appreciated._
