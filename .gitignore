@@ -1,0 +1,20 @@
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Obsidian
+.obsidian/
+
+# Sensitive engagement data — never commit these
+*.pcap
+*.kdbx
+creds.txt
+credentials.txt
+flags.txt
+user.txt
+root.txt
+loot/
