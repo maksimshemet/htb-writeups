@@ -2,12 +2,12 @@
 
 Tracking my path through Hack The Box on the way to OSCP. `[x]` = owned & written up.
 
-**Progress: 1 / 179**
+**Progress: 2 / 179**
 
-## 🟢 Easy (1/81)
+## 🟢 Easy (2/81)
 
 - [x] Lame — [writeup](Machines/Lame/README.md)
-- [ ] Legacy
+- [x] Legacy — [writeup](Machines/Legacy/README.md)
 - [ ] Blue
 - [ ] Devel
 - [ ] Jerry

@@ -19,11 +19,11 @@
 
 | Difficulty | Owned | Total |
 |-----------|:-----:|:-----:|
-| 🟢 Easy    |  1    | 81    |
+| 🟢 Easy    |  2    | 81    |
 | 🟡 Medium  |  0    | 69    |
 | 🔴 Hard    |  0    | 21    |
 | ⚫ Insane  |  0    | 8     |
-| **Total** | **1** | **179** |
+| **Total** | **2** | **179** |
 
 Full checklist: [ROADMAP.md](ROADMAP.md)
 
@@ -34,6 +34,7 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 | Machine | OS | Difficulty | Key Techniques | Writeup |
 |---------|----|-----------|----------------|---------|
 | Lame | 🐧 Linux | 🟢 Easy | distcc RCE (CVE-2004-2687), vsftpd 2.3.4 backdoor (CVE-2011-2523) | [Read](Machines/Lame/README.md) |
+| Legacy | 🪟 Windows XP | 🟢 Easy | MS17-010 / EternalBlue (CVE-2017-0143) | [Read](Machines/Legacy/README.md) |
 
 ---
 
@@ -49,7 +50,8 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 │       └── images/                    # screenshots
 └── templates/
     ├── machine-writeup-template.md    # reusable walkthrough skeleton
-    └── professional-report-template.md# OSCP-style formal report skeleton
+    ├── professional-report-template.md# OSCP-style formal report skeleton
+    └── metasploit-decision-tree.md    # when to spend the OSCP msf allowance vs. go manual
 ```
 
 ---
@@ -70,6 +72,14 @@ Tools that have earned a permanent place in my workflow:
 > smbclient //<IP>/<share> -U "" -N     # empty user, no password
 > ```
 > Great for enumerating shares when you have no credentials yet.
+
+---
+
+## 🌳 Metasploit vs. manual — a decision tree
+
+For OSCP-style engagements with a limited Metasploit allowance, this is the framework I use
+to decide whether a box is worth spending it on: [templates/metasploit-decision-tree.md](templates/metasploit-decision-tree.md)
+(worked example against Legacy/MS17-010 in the [Legacy writeup](Machines/Legacy/README.md#-decision-tree--use-metasploit-or-go-manual-oscp)).
 
 ---
 

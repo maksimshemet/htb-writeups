@@ -1,0 +1,19 @@
+[project]
+name = "smb-enum-legacy"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Maksym S", email = "max@max" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "impacket>=0.13.1",
+]
+
+[project.scripts]
+smb-enum-legacy = "smb_enum_legacy:main"
+
+[build-system]
+requires = ["uv_build>=0.12.11,<0.13.0"]
+build-backend = "uv_build"
