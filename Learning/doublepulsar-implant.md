@@ -3,6 +3,13 @@
 > Background reading spun out of researching an open question from `Machines/Blue/README.md`
 > (the `smb_doublepulsar_rce` Metasploit module). General reference, not tied to one box.
 
+> ⚠️ **Context:** this is retrospective, educational analysis of a **patched, ~2017-era**
+> vulnerability (MS17-010, fixed March 2017) and a publicly leaked artifact that has been
+> mirrored and dissected by the security industry (Microsoft, Kaspersky, Symantec, Rapid7, and
+> others) for years — not a live threat or original disclosure. SMBv1 has been disabled by
+> default on Windows since 2016/2017, and the exploit itself already ships by default inside
+> Metasploit/Kali. Written for OSCP study purposes, on a retired HTB training machine.
+
 ## What it is
 
 **DOUBLEPULSAR** is a covert kernel-mode backdoor/implant built by the NSA's Equation Group,
