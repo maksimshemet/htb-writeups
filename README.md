@@ -19,11 +19,11 @@
 
 | Difficulty | Owned | Total |
 |-----------|:-----:|:-----:|
-| 🟢 Easy    |  2    | 81    |
+| 🟢 Easy    |  3    | 81    |
 | 🟡 Medium  |  0    | 69    |
 | 🔴 Hard    |  0    | 21    |
 | ⚫ Insane  |  0    | 8     |
-| **Total** | **2** | **179** |
+| **Total** | **3** | **179** |
 
 Full checklist: [ROADMAP.md](ROADMAP.md)
 
@@ -35,6 +35,7 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 |---------|----|-----------|----------------|---------|
 | Lame | 🐧 Linux | 🟢 Easy | distcc RCE (CVE-2004-2687), vsftpd 2.3.4 backdoor (CVE-2011-2523) | [Read](Machines/Lame/README.md) |
 | Legacy | 🪟 Windows XP | 🟢 Easy | MS17-010 / EternalBlue (CVE-2017-0143) | [Read](Machines/Legacy/README.md) |
+| Blue | 🪟 Windows 7 | 🟢 Easy | MS17-010 / EternalBlue (CVE-2017-0143) | [Read](Machines/Blue/README.md) |
 
 ---
 
