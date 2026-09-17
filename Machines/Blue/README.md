@@ -208,6 +208,9 @@ a "DOUBLEPULSAR not detected or disabled" check result. That's consistent with w
 worked here: `ms17_010_eternalblue`, which performs the initial kernel-memory-corruption exploit
 itself rather than assuming a pre-existing implant.
 
+For a deeper standalone dive into what DOUBLEPULSAR is and where to find its code/analysis, see
+[`Learning/doublepulsar-implant.md`](../../Learning/doublepulsar-implant.md).
+
 **Sources:**
 - [Rapid7 module reference — SMB DOUBLEPULSAR Remote Code Execution](https://www.rapid7.com/db/modules/exploit/windows/smb/smb_doublepulsar_rce/)
 - [rapid7/metasploit-framework — module documentation](https://github.com/rapid7/metasploit-framework/blob/master/documentation/modules/exploit/windows/smb/smb_doublepulsar_rce.md)

@@ -49,6 +49,8 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 │   └── <MachineName>/
 │       ├── README.md                  # the walkthrough
 │       └── images/                    # screenshots
+├── Learning/
+│   └── <topic>.md                     # standalone reference notes (not tied to one machine)
 └── templates/
     ├── machine-writeup-template.md    # reusable walkthrough skeleton
     ├── professional-report-template.md# OSCP-style formal report skeleton
