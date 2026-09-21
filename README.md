@@ -19,11 +19,11 @@
 
 | Difficulty | Owned | Total |
 |-----------|:-----:|:-----:|
-| 🟢 Easy    |  4    | 81    |
+| 🟢 Easy    |  5    | 81    |
 | 🟡 Medium  |  0    | 69    |
 | 🔴 Hard    |  0    | 21    |
 | ⚫ Insane  |  0    | 8     |
-| **Total** | **4** | **179** |
+| **Total** | **5** | **179** |
 
 Full checklist: [ROADMAP.md](ROADMAP.md)
 
@@ -37,6 +37,7 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 | Legacy | 🪟 Windows XP | 🟢 Easy | MS17-010 / EternalBlue (CVE-2017-0143) | [Read](Machines/Legacy/README.md) |
 | Blue | 🪟 Windows 7 | 🟢 Easy | MS17-010 / EternalBlue (CVE-2017-0143) | [Read](Machines/Blue/README.md) |
 | Devel | 🪟 Windows 7 | 🟢 Easy | Anonymous FTP write → IIS webshell, `SeImpersonatePrivilege` abuse (JuicyPotato) | [Read](Machines/Devel/README.md) |
+| Arctic | 🪟 Windows Server 2008 R2 | 🟢 Easy | ColdFusion 8 / FCKeditor traversal (CVE-2009-2265), `SeImpersonatePrivilege` abuse (JuicyPotato) | [Read](Machines/Arctic/README.md) |
 
 ---
 
