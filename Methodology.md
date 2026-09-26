@@ -101,6 +101,31 @@ check before moving on, not an optional side-quest.
 
 ---
 
+## Localhost-gated endpoints & SSRF reflexes (web)
+
+Some endpoints are deliberately restricted to the loopback interface (nginx/Apache
+`if ($remote_addr != 127.0.0.1)`, `allow 127.0.0.1; deny all;`, stub_status/mod_status, `/metrics`).
+From outside they return **403/404 even though they exist** — that status is a signal, not a wall.
+
+- **A `403` (or a suspiciously empty `404`) on an infrastructure-sounding path** — `/status`,
+  `/server-status`, `/nginx_status`, `/metrics`, `/health`, `/debug`, `/actuator/*` — usually means
+  "exists, but localhost-only." Don't discard it; find a way to reach it *from the box*.
+- **The way in is almost always SSRF.** Any feature that fetches a user-supplied URL (a URL
+  validator, link preview, webhook tester, PDF/screenshot generator, "import from URL") is a
+  candidate. When you find one, point it at the loopback-only endpoints above.
+- **Filter-bypass forms for `127.0.0.1`**, in rough order to try: `0.0.0.0`, `localhost`,
+  `127.0.0.1`, `127.1`, `[::1]`, decimal/octal/hex IP encodings, and a
+  **redirect gadget** (your server replies `302 Location: http://127.0.0.1:PORT/`) for validators
+  that only check the *initial* host. A request arriving via SSRF originates from the box itself, so
+  it satisfies a `$remote_addr == 127.0.0.1` check that your external request never could.
+- **High-entropy / random vhost names cannot be brute-forced** — no subdomain wordlist will find
+  `nb-<randomhex>.target.tld`. Don't burn time fuzzing for them. They're meant to be *disclosed*:
+  look in a localhost-only status/config/debug endpoint (reached via SSRF), in client-side JS, or
+  in a leaked config. If subdomain fuzzing comes up empty, that's a hint the real vhost is disclosed
+  somewhere, not guessable.
+
+---
+
 ## Behavioral discipline (the real gap is usually behavior, not knowledge)
 
 Most avoidable time loss is *knowing* the right move and doing the wrong one anyway (curiosity
@@ -156,6 +181,27 @@ find / -perm -4000 -type f 2>/dev/null     # SUID
 getcap -r / 2>/dev/null                    # capabilities
 # then a full enumeration script for breadth — but triage its output (see below), don't trust it blindly
 ```
+
+> **Automated exploit-suggesters are not exhaustive — treat an empty result as "keep looking," not
+> "nothing here."** Tools like LinPEAS's / linux-exploit-suggester's CVE checks mostly match the
+> **kernel version** against a bundled signature list, plus a handful of famous userland bugs. They
+> do **not** version-fingerprint every privileged userland daemon against the latest CVEs, and a
+> vulnerability disclosed after the tool's DB was last updated simply won't appear. So always **also
+> enumerate the privileged daemons manually** and version-search them yourself:
+>
+> ```bash
+> ps -eo user,pid,comm | grep -E '^root'          # what runs as root
+> systemctl list-units --type=service --state=running
+> # D-Bus/polkit-fronted services are classic LPE surface (polkit, PackageKit, udisks2, accountsservice…)
+> ps aux | grep -E 'polkit|packagekit|dbus|udisks|fwupd'
+> dpkg -l | grep -iE 'polkit|packagekit|udisks|fwupd'   # get exact versions
+> pkexec --version ; pkcon --version 2>/dev/null
+> ```
+>
+> Then search `<daemon> <version> privilege escalation` / recent CVEs. A root-owned D-Bus service +
+> a version number is a lead in itself, even when every automated tool stayed silent. `pspy` helps
+> here too — root-run helper/daemon activity you didn't trigger points straight at the abusable
+> service.
 
 ---
 

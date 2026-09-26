@@ -10,6 +10,7 @@ Not part of the 179-machine checklist below; tracked separately since these are 
 and can't be written up yet (per Responsible Disclosure — see `README.md`).
 
 - [x] Management — pwned 23/09/2026, [placeholder](Machines/Management/README.md) (full writeup after retirement)
+- [x] Cohort — pwned 26/09/2026, [placeholder](Machines/Cohort/README.md) (full writeup after retirement)
 
 ## 🟢 Easy (5/81)
 
