@@ -52,7 +52,7 @@ When analyzing logs, clean up the extracted temp dir afterward.
 - Only **retired** HTB machines get a full writeup (per the Responsible Disclosure section in `README.md`).
 - **Active (non-retired) box pwned →** create `Machines/<Machine>/README.md` as a **placeholder only**
   (pwned date + "writeup after retirement" note — no recon/exploit/CVE/host details), and list it under
-  the "🕓 Pwned — writeup pending retirement" section in `ROADMAP.md` (kept out of the 179 progress
+  the "🕓 Pwned — writeup pending retirement" section in `ROADMAP.md` (kept out of the 219 progress
   count). Examples: `Machines/Management/`, `Machines/Cohort/`. Verify retirement status before writing
   a full writeup.
 - Flags are always redacted — match whichever redaction style the machine's existing section uses

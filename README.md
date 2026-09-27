@@ -17,13 +17,25 @@
 
 ## 📊 Progress
 
+**By category** — [LainKusanagi OSCP-like list](ROADMAP.md#-oscp-core--lainkusanagi-list-hackthebox) core vs. the full checklist
+(overall also includes the VulnLab extras and additional practice boxes):
+
+| Category | Lain owned | Lain total | Overall owned | Overall total |
+|----------|:----------:|:----------:|:-------------:|:-------------:|
+| 🐧 Linux            | 0     | 39     | 1     | 124     |
+| 🪟 Windows          | 2     | 18     | 5     | 42      |
+| 🏰 Active Directory | 0     | 16     | 0     | 53      |
+| **Total**           | **2** | **73** | **6** | **219** |
+
+**By difficulty:**
+
 | Difficulty | Owned | Total |
 |-----------|:-----:|:-----:|
-| 🟢 Easy    |  6    | 81    |
-| 🟡 Medium  |  0    | 69    |
-| 🔴 Hard    |  0    | 21    |
-| ⚫ Insane  |  0    | 8     |
-| **Total** | **6** | **179** |
+| 🟢 Easy    |  6    | 113   |
+| 🟡 Medium  |  0    | 68    |
+| 🔴 Hard    |  0    | 24    |
+| ⚫ Insane  |  0    | 14    |
+| **Total** | **6** | **219** |
 
 > Counts reflect **retired** machines with a published writeup. **2** more boxes are pwned but still
 > active, so their writeups are held until retirement — see the pending section in [ROADMAP.md](ROADMAP.md).
