@@ -10,7 +10,7 @@
 ## ⚠️ Responsible disclosure
 
 - Only **retired** HTB machines are documented here, in line with the [HTB Terms of Service](https://www.hackthebox.com/tos).
-- **No flag values** are ever published — flags are redacted as `HTB{__REDACTED__}`.
+- **No flag values** are ever published — flags are redacted (`<redacted>` / `HTB{__REDACTED__}`).
 - Everything here is for **educational and authorised testing purposes only**.
 
 ---
@@ -19,11 +19,14 @@
 
 | Difficulty | Owned | Total |
 |-----------|:-----:|:-----:|
-| 🟢 Easy    |  5    | 81    |
+| 🟢 Easy    |  6    | 81    |
 | 🟡 Medium  |  0    | 69    |
 | 🔴 Hard    |  0    | 21    |
 | ⚫ Insane  |  0    | 8     |
-| **Total** | **5** | **179** |
+| **Total** | **6** | **179** |
+
+> Counts reflect **retired** machines with a published writeup. **2** more boxes are pwned but still
+> active, so their writeups are held until retirement — see the pending section in [ROADMAP.md](ROADMAP.md).
 
 Full checklist: [ROADMAP.md](ROADMAP.md)
 
@@ -38,6 +41,7 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 | Blue | 🪟 Windows 7 | 🟢 Easy | MS17-010 / EternalBlue (CVE-2017-0143) | [Read](Machines/Blue/README.md) |
 | Devel | 🪟 Windows 7 | 🟢 Easy | Anonymous FTP write → IIS webshell, `SeImpersonatePrivilege` abuse (JuicyPotato) | [Read](Machines/Devel/README.md) |
 | Arctic | 🪟 Windows Server 2008 R2 | 🟢 Easy | ColdFusion 8 / FCKeditor traversal (CVE-2009-2265), `SeImpersonatePrivilege` abuse (JuicyPotato) | [Read](Machines/Arctic/README.md) |
+| Jerry | 🪟 Windows Server 2012 R2 | 🟢 Easy | Tomcat Manager default creds → malicious WAR deploy → SYSTEM | [Read](Machines/Jerry/README.md) |
 
 ---
 

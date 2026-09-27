@@ -2,7 +2,7 @@
 
 Tracking my path through Hack The Box on the way to OSCP. `[x]` = owned & written up.
 
-**Progress: 5 / 179**
+**Progress: 6 / 179**
 
 ## 🕓 Pwned — writeup pending retirement
 
@@ -12,13 +12,13 @@ and can't be written up yet (per Responsible Disclosure — see `README.md`).
 - [x] Management — pwned 23/09/2026, [placeholder](Machines/Management/README.md) (full writeup after retirement)
 - [x] Cohort — pwned 26/09/2026, [placeholder](Machines/Cohort/README.md) (full writeup after retirement)
 
-## 🟢 Easy (5/81)
+## 🟢 Easy (6/81)
 
 - [x] Lame — [writeup](Machines/Lame/README.md)
 - [x] Legacy — [writeup](Machines/Legacy/README.md)
 - [x] Blue — [writeup](Machines/Blue/README.md)
 - [x] Devel — [writeup](Machines/Devel/README.md)
-- [ ] Jerry
+- [x] Jerry — [writeup](Machines/Jerry/README.md)
 - [x] Arctic — [writeup](Machines/Arctic/README.md)
 - [ ] Grandpa
 - [ ] Granny
