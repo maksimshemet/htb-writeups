@@ -46,6 +46,7 @@ When analyzing logs, clean up the extracted temp dir afterward.
 | `Methodology.md` + `Methodology/Windows.md` + `Methodology/Linux.md` | Sanitized, **public**, box-agnostic methodology (mirror of the vault playbook; never put active-box specifics here). |
 | `Learning/<topic>.md` | Standalone reference notes not tied to one machine. |
 | `templates/` | Writeup + report skeletons, msf decision tree. |
+| `dotfiles/<tool>/` | Reusable tooling configs (e.g. `dotfiles/tmux/` — tmux config + auto per-pane logging helper). |
 
 ## Repo conventions
 
