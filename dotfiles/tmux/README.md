@@ -1,13 +1,14 @@
 # tmux config — pentest / OSCP setup
 
-My tmux setup for HTB/OSCP work. The headline feature is **automatic per-pane session logging**:
-the moment any window or pane opens, its full transcript starts writing to `~/pentest-logs/` with
-per-line timecodes — no manual toggle, so a box is never lost to "forgot to start logging."
+My tmux setup for HTB/OSCP work. The headline feature is **automatic per-pane session logging with
+archive-on-close**: the moment any window or pane opens, its full transcript starts writing to
+`~/pentest-logs/` with per-line timecodes — no manual toggle — and when the session ends its logs
+are tar.gz'd and the raw files removed.
 
 | File | Purpose |
 |------|---------|
 | [`tmux.conf`](tmux.conf) | The config → copy to `~/.tmux.conf` |
-| [`log-pane.sh`](log-pane.sh) | Logging helper the hooks call → copy to `~/.tmux/log-pane.sh` |
+| [`tmux-log.sh`](tmux-log.sh) | Logging + archive helper the hooks/keybind call → copy to `~/.tmux/tmux-log.sh` |
 
 ## Prefix
 
@@ -21,8 +22,8 @@ split is `Alt-a` then `|`. Press `Alt-a` twice to send a literal `Alt-a` to the 
 sudo apt install -y moreutils xclip          # ts (timecodes) + clipboard
 mkdir -p ~/.tmux ~/pentest-logs
 cp tmux.conf        ~/.tmux.conf
-cp log-pane.sh      ~/.tmux/log-pane.sh
-chmod +x            ~/.tmux/log-pane.sh
+cp tmux-log.sh      ~/.tmux/tmux-log.sh
+chmod +x            ~/.tmux/tmux-log.sh
 
 # plugins (optional — for the on-demand tmux-logging keys)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -34,20 +35,40 @@ tmux            # inside: prefix + I to install plugins
 
 ## How the logging works
 
-- Three hooks in `tmux.conf` (`session-created`, `after-new-window`, `after-split-window`) run
-  `log-pane.sh` against each new pane.
-- The script `pipe-pane`s that pane to its own file in `~/pentest-logs/`:
+- Hooks in `tmux.conf` run `tmux-log.sh` against each new pane and on session close.
+- Each **session gets its own directory** `~/pentest-logs/<session>_<date>-<time>/`, and every pane
+  `pipe-pane`s to its own file inside it:
 
   ```
-  ~/pentest-logs/20261001-102858_main_w1p0.log
-                 └date──┘ └time┘ │sess│ └win/pane┘
+  ~/pentest-logs/boxA_20261001-104540/
+                 ├─ w0p0_104540.log      ← window 0, pane 0
+                 ├─ w1p0_104540.log      ← window 1, pane 0
+                 └─ .sid                 ← tmux session id (for the sweep)
   ```
 
-- With `moreutils` installed, every line is prefixed `[2026-10-01 10:28:58.123456]`. Without it,
-  the log is still captured raw and a one-line warning is written at the top.
+- With `moreutils` installed, every line is prefixed `[2026-10-01 10:45:40.123456]`. Without it,
+  the log is captured raw and a one-line warning is written at the top.
 - **One file per pane** on purpose — concurrent panes writing to a shared file corrupt each other.
   Search across a box's logs with `grep -r ~/pentest-logs`.
-- Set `TMUX_LOGDIR` to log somewhere else.
+- Set `TMUX_LOGDIR` to log somewhere else (default `~/pentest-logs`).
+
+## Archive on session end
+
+When a session ends, its directory is tar.gz'd to `~/pentest-logs/<session>_<date>-<time>.tar.gz`
+and the raw directory is removed. Two triggers make this reliable:
+
+- **`session-closed` hook** — archives a session the instant it closes. tmux does *not* run this
+  hook for the **last** session (the server exits first), so…
+- **sweep on `session-created`** — each time a session starts, any leftover log dir whose session
+  is no longer alive gets archived. This mops up the previous run's last session automatically.
+
+So the only gap is: the very last session's logs stay as a raw dir until you next start tmux, then
+they're archived. To archive-and-close immediately instead:
+
+- **`prefix` + `E`** — flush, archive this session's logs, and kill the session (works even when
+  it's the only one). Confirms first.
+
+Manually sweep orphans anytime: `~/.tmux/tmux-log.sh sweep`.
 
 ### Reading the logs
 
