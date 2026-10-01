@@ -9,6 +9,12 @@ per-line timecodes — no manual toggle, so a box is never lost to "forgot to st
 | [`tmux.conf`](tmux.conf) | The config → copy to `~/.tmux.conf` |
 | [`log-pane.sh`](log-pane.sh) | Logging helper the hooks call → copy to `~/.tmux/log-pane.sh` |
 
+## Prefix
+
+Remapped to **`Alt-a`** (not the default `Ctrl-b`). All tmux keys are "prefix then key" — e.g. a
+split is `Alt-a` then `|`. Press `Alt-a` twice to send a literal `Alt-a` to the shell. Change it in
+`tmux.conf` under the `# ── Prefix ──` block.
+
 ## Install (Kali)
 
 ```bash
