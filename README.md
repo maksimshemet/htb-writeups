@@ -22,20 +22,20 @@
 
 | Category | Lain owned | Lain total | Overall owned | Overall total |
 |----------|:----------:|:----------:|:-------------:|:-------------:|
-| 🐧 Linux            | 0     | 39     | 1     | 124     |
+| 🐧 Linux            | 1     | 39     | 2     | 124     |
 | 🪟 Windows          | 2     | 18     | 5     | 42      |
 | 🏰 Active Directory | 0     | 16     | 0     | 53      |
-| **Total**           | **2** | **73** | **6** | **219** |
+| **Total**           | **3** | **73** | **7** | **219** |
 
 **By difficulty:**
 
 | Difficulty | Owned | Total |
 |-----------|:-----:|:-----:|
-| 🟢 Easy    |  6    | 113   |
+| 🟢 Easy    |  7    | 113   |
 | 🟡 Medium  |  0    | 68    |
 | 🔴 Hard    |  0    | 24    |
 | ⚫ Insane  |  0    | 14    |
-| **Total** | **6** | **219** |
+| **Total** | **7** | **219** |
 
 > Counts reflect **retired** machines with a published writeup. **2** more boxes are pwned but still
 > active, so their writeups are held until retirement — see the pending section in [ROADMAP.md](ROADMAP.md).
@@ -54,6 +54,7 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 | Devel | 🪟 Windows 7 | 🟢 Easy | Anonymous FTP write → IIS webshell, `SeImpersonatePrivilege` abuse (JuicyPotato) | [Read](Machines/Devel/README.md) |
 | Arctic | 🪟 Windows Server 2008 R2 | 🟢 Easy | ColdFusion 8 / FCKeditor traversal (CVE-2009-2265), `SeImpersonatePrivilege` abuse (JuicyPotato) | [Read](Machines/Arctic/README.md) |
 | Jerry | 🪟 Windows Server 2012 R2 | 🟢 Easy | Tomcat Manager default creds → malicious WAR deploy → SYSTEM | [Read](Machines/Jerry/README.md) |
+| Bashed | 🐧 Linux (Ubuntu 16.04) | 🟢 Easy | Exposed phpbash web shell → `www-data`, `NOPASSWD` sudo to scriptmanager, writable root cron in `/scripts` | [Read](Machines/Bashed/README.md) |
 
 ---
 

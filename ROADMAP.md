@@ -2,7 +2,7 @@
 
 Tracking my path through Hack The Box on the way to OSCP. `[x]` = owned & written up.
 
-**Progress:** LainKusanagi OSCP core **2 / 73** · VulnLab extra **0 / 19** · Total **6 / 219**
+**Progress:** LainKusanagi OSCP core **3 / 73** · VulnLab extra **0 / 19** · Total **7 / 219**
 
 ## 🕓 Pwned — writeup pending retirement
 
@@ -14,9 +14,9 @@ and can't be written up yet (per Responsible Disclosure — see `README.md`).
 
 ## 🎯 OSCP Core — LainKusanagi list (HackTheBox)
 
-### 🐧 Linux (0/39)
+### 🐧 Linux (1/39)
 
-- [ ] Bashed — 🟢
+- [x] Bashed — 🟢 — [writeup](Machines/Bashed/README.md)
 - [ ] BoardLight — 🟢
 - [ ] Broker — 🟢
 - [ ] Busqueda — 🟢
