@@ -23,19 +23,19 @@
 | Category | Lain owned | Lain total | Overall owned | Overall total |
 |----------|:----------:|:----------:|:-------------:|:-------------:|
 | 🐧 Linux            | 1     | 39     | 2     | 124     |
-| 🪟 Windows          | 2     | 18     | 5     | 42      |
+| 🪟 Windows          | 3     | 18     | 6     | 42      |
 | 🏰 Active Directory | 0     | 16     | 0     | 53      |
-| **Total**           | **3** | **73** | **7** | **219** |
+| **Total**           | **4** | **73** | **8** | **219** |
 
 **By difficulty:**
 
 | Difficulty | Owned | Total |
 |-----------|:-----:|:-----:|
-| 🟢 Easy    |  7    | 113   |
+| 🟢 Easy    |  8    | 113   |
 | 🟡 Medium  |  0    | 68    |
 | 🔴 Hard    |  0    | 24    |
 | ⚫ Insane  |  0    | 14    |
-| **Total** | **7** | **219** |
+| **Total** | **8** | **219** |
 
 > Counts reflect **retired** machines with a published writeup. **2** more boxes are pwned but still
 > active, so their writeups are held until retirement — see the pending section in [ROADMAP.md](ROADMAP.md).
@@ -55,6 +55,7 @@ Full checklist: [ROADMAP.md](ROADMAP.md)
 | Arctic | 🪟 Windows Server 2008 R2 | 🟢 Easy | ColdFusion 8 / FCKeditor traversal (CVE-2009-2265), `SeImpersonatePrivilege` abuse (JuicyPotato) | [Read](Machines/Arctic/README.md) |
 | Jerry | 🪟 Windows Server 2012 R2 | 🟢 Easy | Tomcat Manager default creds → malicious WAR deploy → SYSTEM | [Read](Machines/Jerry/README.md) |
 | Bashed | 🐧 Linux (Ubuntu 16.04) | 🟢 Easy | Exposed phpbash web shell → `www-data`, `NOPASSWD` sudo to scriptmanager, writable root cron in `/scripts` | [Read](Machines/Bashed/README.md) |
+| Access | 🪟 Windows Server 2008 R2 | 🟢 Easy | Anon FTP → `backup.mdb` creds → PST email → telnet; `cmdkey /list` saved Administrator cred → `runas /savecred` | [Read](Machines/Access/README.md) |
 
 ---
 

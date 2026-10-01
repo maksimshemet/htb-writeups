@@ -2,7 +2,7 @@
 
 Tracking my path through Hack The Box on the way to OSCP. `[x]` = owned & written up.
 
-**Progress:** LainKusanagi OSCP core **3 / 73** · VulnLab extra **0 / 19** · Total **7 / 219**
+**Progress:** LainKusanagi OSCP core **4 / 73** · VulnLab extra **0 / 19** · Total **8 / 219**
 
 ## 🕓 Pwned — writeup pending retirement
 
@@ -56,9 +56,9 @@ and can't be written up yet (per Responsible Disclosure — see `README.md`).
 - [ ] TartarSauce — 🟡
 - [ ] UpDown — 🟡
 
-### 🪟 Windows (2/18)
+### 🪟 Windows (3/18)
 
-- [ ] Access — 🟢
+- [x] Access — 🟢 — [writeup](Machines/Access/README.md)
 - [x] Arctic — 🟢 — [writeup](Machines/Arctic/README.md)
 - [ ] Bounty — 🟢
 - [ ] Buff — 🟢

